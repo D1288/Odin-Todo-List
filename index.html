@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Todo List</title>
+</head>
+
+<body>
+    <header>
+        <h1>Todo List</h1>
+        <div class="headerButtons">
+            <button class="addTodo">+</button>
+            <button class="showProjects">Projects</button>
+        </div>
+    </header>
+    <div class="bodyContainer">
+        <div class="sidebar">
+            <i>Home</i>
+            <i>Todo List</i>
+            <i>Projects</i>
+            <i>Settings</i>
+        </div>
+        <div class="overlay"></div>
+        <form class="addForm">
+            <label for="add">Enter Todo</label>
+            <input type="text" name="add" id="add"><br>
+            <label for="dueDate">Due Date</label>
+            <input type="date" name="dueDate" id="dueDate"><br>
+            <label for="priority">Priority</label>
+            <select name="priority" id="priority">
+                <option value="low">Low</option>
+                <option value="moderate">Moderate</option>
+                <option value="critical">Critical</option>
+            </select><br>
+            <button class="addToList">Add Todo</button>
+        </form>
+        <div class="todoContainer">
+            <ul class="todoList">
+                <li class="todoItem">
+                    <p>Do task number 1</p>
+                    <p>Due Date</p>
+                    <p>Priority</p>
+                    <div class="headerButtons">
+                        <button class="edit">Edit</button>
+                        <button class="delete">X</button>
+                    </div>
+                </li>
+                <li class="todoItem">
+                    <p>Do task number 2</p>
+                    <p>Due Date</p>
+                    <p>Priority</p>
+                    <div class="headerButtons">
+                        <button class="edit">Edit</button>
+                        <button class="delete">X</button>
+                    </div>
+                </li>
+                <li class="todoItem">
+                    <p>Do task number 3</p>
+                    <p>Due Date</p>
+                    <p>Priority</p>
+                    <div class="headerButtons">
+                        <button class="edit">Edit</button>
+                        <button class="delete">X</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script src="index.js"></script>
+</body>
+
+</html>

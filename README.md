@@ -1,2 +1,2 @@
-# Odin-Todo-List
-Todo list project for the Odin Project
+# Todo-List
+This is a todo list for the Odin Project
