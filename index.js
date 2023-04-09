@@ -17,6 +17,39 @@ overlay.addEventListener('click', () => {
 todoList.addEventListener('click', (e) => {
     if (e.target.classList.contains('delete')) {
         e.target.parentElement.parentElement.remove()
+    } else if (e.target.classList.contains('edit')) {
+        const todoItem = e.target.parentElement.parentElement;
+        const description = todoItem.querySelector('p:first-child')
+        const dueDate = todoItem.querySelector('p:nth-child(2)');
+        const priority = todoItem.querySelector('p:nth-child(3)');
+
+        description.outerHTML = `<input type="text" value="${description.textContent}" class="editDescription">`;
+        dueDate.outerHTML = `<input type="date" value="${dueDate.textContent.slice(10)}" class="editDueDate">`;
+        priority.outerHTML = `<select name="priority" id="priority" class="editPriority">
+                              <option value="Low">Low</option>
+                              <option value="Moderate">Moderate</option>
+                              <option value="Critical">Critical</option>
+                              </select>`;
+
+        const saveButton = document.createElement('button');
+        saveButton.classList.add('save')
+        saveButton.textContent = 'Save'
+        e.target.parentElement.replaceChild(saveButton, e.target);
+    } else if (e.target.classList.contains('save')) {
+        const todoItem = e.target.parentElement.parentElement;
+        const editDescription = todoItem.querySelector('.editDescription');
+        const editDueDate = todoItem.querySelector('.editDueDate');
+        const editPriority = todoItem.querySelector('.editPriority');
+
+        editDescription.outerHTML = `<p>${editDescription.value}</p>`;
+        editDueDate.outerHTML = `<p>${editDueDate.value}</p>`;
+        editPriority.outerHTML = `<p>${editPriority.value}</p>`;
+
+        const editButton = document.createElement('button');
+        editButton.classList.add('edit');
+        editButton.textContent = 'Edit';
+        e.target.parentElement.replaceChild(editButton, e.target);
+        changeBackgroundColor(todoItem)
     }
 })
 
@@ -40,10 +73,10 @@ function generateTodo(e) {
     description.textContent = todo.description
 
     const dueDate = document.createElement('p')
-    dueDate.textContent = `Due Date: ${todo.dueDate}`
+    dueDate.textContent = `${todo.dueDate}`
 
     const priority = document.createElement('p')
-    priority.textContent = `Priority: ${todo.priority}`
+    priority.textContent = `${todo.priority}`
 
     const buttonContainer = document.createElement('div')
     buttonContainer.classList.add('headerButtons')
@@ -60,10 +93,29 @@ function generateTodo(e) {
 
     li.append(description, dueDate, priority, buttonContainer);
     todoList.appendChild(li)
+    changeBackgroundColor(li)
 
     addForm.reset()
 }
 
 addtoListBtn.addEventListener('click', generateTodo);
+
+
+function changeBackgroundColor(todoItem) {
+    const priorityElem = todoItem.querySelector('p:nth-child(3)');
+    const priority = priorityElem.textContent
+
+    if (priority === 'Moderate') {
+        todoItem.style.backgroundColor = 'lightyellow';
+    } else if (priority === 'Critical') {
+        todoItem.style.backgroundColor = 'lightcoral'
+    }
+}
+
+
+
+
+
+
 
 
