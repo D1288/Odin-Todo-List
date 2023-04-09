@@ -76,12 +76,17 @@ function generateTodo(e) {
 
     addForm.reset()
 
-    
-      
+    const storedProjects = JSON.parse(localStorage.getItem('projects')) || [];
+    storedProjects.push(project);
+    localStorage.setItem('projects', JSON.stringify(storedProjects))
 }
 
 todoList.addEventListener('click', (e) => {
     if (e.target.classList.contains('delete')) {
+        const storedProjects = JSON.parse(localStorage.getItem('projects')) || [];
+        const projectsIndex = Array.from(todoList.children).indexOf(e.target.parentElement.parentElement);
+        storedProjects.splice(projectsIndex, 1);
+        localStorage.setItem('projects', JSON.stringify(storedProjects))
         e.target.parentElement.parentElement.remove()
     } else if (e.target.classList.contains('edit')) {
         const todoItem = e.target.parentElement.parentElement;
@@ -116,7 +121,7 @@ todoList.addEventListener('click', (e) => {
         editButton.textContent = 'Edit';
         e.target.parentElement.replaceChild(editButton, e.target);
         changeBackgroundColor(todoItem)
-    } else if(e.target.classList.contains('showNotes')){
+    } else if (e.target.classList.contains('showNotes')) {
         const todoItem = e.target.parentElement.parentElement
         const notes = todoItem.querySelector('.notes')
         notes.classList.toggle('show')
@@ -124,7 +129,48 @@ todoList.addEventListener('click', (e) => {
 })
 
 
-
-
-
 addtoListBtn.addEventListener('click', generateTodo)
+
+//generate from local storage 
+window.addEventListener('load', () => {
+    const storedTodos = JSON.parse(localStorage.getItem('projects')) || [];
+    storedTodos.forEach(todo => {
+        const li = document.createElement('li');
+        li.classList.add('todoItem');
+
+        const description = document.createElement('p');
+        description.textContent = todo.description;
+
+        const dueDate = document.createElement('p');
+        dueDate.textContent = `${todo.dueDate}`;
+
+        const priority = document.createElement('p');
+        priority.textContent = `${todo.priority}`;
+
+        const notes = document.createElement('textarea');
+        notes.classList.add('notes');
+
+        const buttonContainer = document.createElement('div');
+        buttonContainer.classList.add('headerButtons');
+        buttonContainer.classList.add('liButtons');
+
+        const notesButton = document.createElement('button');
+        notesButton.textContent = 'Notes';
+        notesButton.classList.add('showNotes');
+
+        const editButton = document.createElement('button');
+        editButton.classList.add('edit');
+        editButton.textContent = 'Edit';
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.classList.add('delete');
+        deleteBtn.textContent = 'X';
+
+        buttonContainer.append(notesButton, editButton, deleteBtn);
+
+        li.append(description, dueDate, priority, notes, buttonContainer);
+        todoList.appendChild(li);
+
+        changeBackgroundColor(li);
+    });
+});
