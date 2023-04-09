@@ -50,19 +50,16 @@ function generateTodo(e) {
     const priority = document.createElement('p')
     priority.textContent = `${project.priority}`
 
-    const notesSection = document.createElement('div');
-    notesSection.classList.add('notesSection');
-
-    const notesTitle = document.createElement('h3')
-    notesTitle.textContent = 'Notes'
-
-    const notesTextarea = document.createElement('textarea')
-    notesTextarea.classList.add('notesTextarea')
-    notesTextarea.readOnly = false;
-    notesTextarea.value = '';
+    const notes = document.createElement('textarea')
+    notes.classList.add('notes')
 
     const buttonContainer = document.createElement('div')
     buttonContainer.classList.add('headerButtons')
+    buttonContainer.classList.add('liButtons')
+
+    const notesButton = document.createElement('button')
+    notesButton.textContent = 'Notes'
+    notesButton.classList.add('showNotes')
 
     const editButton = document.createElement('button')
     editButton.classList.add('edit')
@@ -72,12 +69,15 @@ function generateTodo(e) {
     deleteBtn.classList.add('delete');
     deleteBtn.textContent = 'X'
 
-    buttonContainer.append(editButton, deleteBtn)
+    buttonContainer.append(notesButton, editButton, deleteBtn)
 
-    li.append(description, dueDate, priority, buttonContainer, notesSection);
+    li.append(description, dueDate, priority, notes, buttonContainer);
     todoList.appendChild(li)
 
     addForm.reset()
+
+    
+      
 }
 
 todoList.addEventListener('click', (e) => {
@@ -116,16 +116,15 @@ todoList.addEventListener('click', (e) => {
         editButton.textContent = 'Edit';
         e.target.parentElement.replaceChild(editButton, e.target);
         changeBackgroundColor(todoItem)
-    } else {
-        const notesSection = e.target.querySelector('.notesSection')
-        if (e.target.classList.contains('todoItem')) {
-            notesSection.classList.toggle('show')
-            if (e.target === notesSection) {
-                notesSection.setAttribute('contentEditable', true)
-            }
-        }
-        
+    } else if(e.target.classList.contains('showNotes')){
+        const todoItem = e.target.parentElement.parentElement
+        const notes = todoItem.querySelector('.notes')
+        notes.classList.toggle('show')
     }
 })
+
+
+
+
 
 addtoListBtn.addEventListener('click', generateTodo)
