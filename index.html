@@ -11,21 +11,20 @@
 
 <body>
     <header>
-        <h1>Todo List</h1>
+        <h1>Projects</h1>
         <div class="headerButtons">
-            <button class="addTodo">+</button>
+            <!-- <button class="addTodo">+</button> -->
             <button class="addProjects">Projects</button>
         </div>
     </header>
     <div class="bodyContainer">
         <div class="sidebar">
-            <i>Todo List</i>
-            <i><a href="projects.html">Projects</a></i>
+            <i>Projects</i>
             <i>Settings</i>
         </div>
         <div class="overlay"></div>
         <form class="addForm">
-            <label for="add">Enter Todo</label>
+            <label for="add">Enter Project Name</label>
             <input type="text" name="add" id="add"><br>
             <label for="dueDate">Due Date</label>
             <input type="date" name="dueDate" id="dueDate"><br>
@@ -35,15 +34,20 @@
                 <option value="moderate">Moderate</option>
                 <option value="critical">Critical</option>
             </select><br>
-            <button class="addToList">Add Todo</button>
+            <button class="addToList">Add Project</button>
         </form>
         <div class="todoContainer">
+            <div class="containerHeader">
+                <h3>Name</h3>
+                <h3>Due Date</h3>
+                <h3>Priority</h3>
+            </div>
             <ul class="todoList">
               
             </ul>
         </div>
     </div>
-    <script src="index.js"></script>
+    <script src="project.js"></script>
 </body>
 
 </html>
